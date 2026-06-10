@@ -4,8 +4,8 @@ COPY --chown=gradle:gradle . /home/gradle/src
 WORKDIR /home/gradle/src
 RUN ./gradlew build -x test --no-daemon
 
-# Stage 2: Run the application
-FROM openjdk:17-jdk-slim
+# Stage 2: Run the application (Updated with supported Eclipse Temurin image)
+FROM eclipse-temurin:17-jdk-jammy
 EXPOSE 8080
 COPY --from=build /home/gradle/src/build/libs/*.jar app.jar
 ENTRYPOINT ["java", "-jar", "/app.jar"]
